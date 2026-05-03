@@ -12,6 +12,13 @@ public abstract class ZombieBase : MonoBehaviour
     [SerializeField] protected float fieldOfView = 110f;
     [SerializeField] protected float attackRange = 2.2f;
 
+    [Header("Chase Behaviour")]
+    [Tooltip("How far the zombie will chase you after losing sight. Should be larger than Detection Range.")]
+    [SerializeField] protected float chaseRange = 20f;
+    [Tooltip("How many seconds the zombie keeps chasing after losing line of sight.")]
+    [SerializeField] protected float chaseMemoryDuration = 3f;
+    protected float chaseMemoryTimer;
+
     [Header("Combat")]
     [SerializeField] protected float maxHealth = 100f;
     [SerializeField] protected float attackDamage = 10f;
@@ -27,6 +34,17 @@ public abstract class ZombieBase : MonoBehaviour
     protected float waitTimer;
     protected bool isWaiting;
 
+    [Header("Movement Speeds")]
+    [SerializeField] protected float patrolSpeed = 3f;
+    [SerializeField] protected float chaseSpeed = 4.5f;
+    [SerializeField] protected float attackSpeedMultiplier = 1f;
+
+    [Header("Animation Tuning")]
+    [SerializeField] protected float walkAnimBaseSpeed = 3f;
+
+    [Header("Animation Timing")]
+    [SerializeField] protected float detectDuration = 1.2f;
+
     [Header("Audio Clips")]
     [SerializeField] protected AudioClip idleGroan;
     [SerializeField] protected AudioClip footstepClip;
@@ -40,12 +58,8 @@ public abstract class ZombieBase : MonoBehaviour
     protected AudioSource audioSource;
     protected Transform player;
 
-    protected enum State { Patrolling, Chasing, Attacking, Dead }
+    protected enum State { Patrolling, Detecting, Chasing, Attacking, Dead }
     protected State currentState = State.Patrolling;
-
-    public abstract float PatrolSpeed { get; }
-    public abstract float ChaseSpeed { get; }
-    public abstract float AttackSpeedMultiplier { get; }
 
     protected virtual void Awake()
     {
@@ -63,8 +77,8 @@ public abstract class ZombieBase : MonoBehaviour
 
     protected virtual void Start()
     {
-        agent.speed = PatrolSpeed;
-        agent.acceleration = PatrolSpeed * 2f;
+        agent.speed = patrolSpeed;
+        agent.acceleration = patrolSpeed * 2f;
         agent.angularSpeed = 360f;
 
         if (patrolPoints != null && patrolPoints.Length > 0)
@@ -75,8 +89,6 @@ public abstract class ZombieBase : MonoBehaviour
 
     protected virtual void Update()
     {
-        
-
         if (currentState == State.Dead || player == null) return;
 
         switch (currentState)
@@ -84,12 +96,29 @@ public abstract class ZombieBase : MonoBehaviour
             case State.Patrolling:
                 UpdatePatrol();
                 if (CanSeePlayer())
-                    TransitionTo(State.Chasing);
+                    StartDetect();
+                break;
+
+            case State.Detecting:
+                // Agent is stopped, animation is playing
+                // Coroutine handles the transition to Chasing
                 break;
 
             case State.Chasing:
                 UpdateChase();
-                if (!CanSeePlayer())
+
+                float distToPlayer = Vector3.Distance(transform.position, player.position);
+
+                if (CanSeePlayer())
+                {
+                    chaseMemoryTimer = chaseMemoryDuration;
+                }
+                else
+                {
+                    chaseMemoryTimer -= Time.deltaTime;
+                }
+
+                if (distToPlayer > chaseRange || chaseMemoryTimer <= 0f)
                     TransitionTo(State.Patrolling);
                 else if (IsInAttackRange())
                     TransitionTo(State.Attacking);
@@ -105,6 +134,31 @@ public abstract class ZombieBase : MonoBehaviour
         UpdateAnimator();
     }
 
+    protected virtual void StartDetect()
+    {
+        currentState = State.Detecting;
+        agent.isStopped = true;
+        animator.ResetTrigger("Detect");
+        animator.SetTrigger("Detect");
+        animator.SetFloat("Speed", 0f);
+        StartCoroutine(DetectRoutine());
+    }
+
+    protected virtual IEnumerator DetectRoutine()
+    {
+        float timer = 0f;
+
+        while (timer < detectDuration)
+        {
+            if (currentState == State.Dead) yield break;
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        if (currentState == State.Detecting)
+            TransitionTo(State.Chasing);
+    }
+
     protected virtual bool CanSeePlayer()
     {
         if (player == null) return false;
@@ -116,10 +170,7 @@ public abstract class ZombieBase : MonoBehaviour
         float angle = Vector3.Angle(transform.forward, dirToPlayer);
         if (angle > fieldOfView * 0.5f) return false;
 
-        // Line of sight check - hits anything except zombie itself
         Vector3 eyePos = transform.position + Vector3.up * 1.0f;
-
-        // Ignore zombies layer so they don't block each other's vision
         int layerMask = ~LayerMask.GetMask("Zombie");
 
         if (Physics.Raycast(eyePos, dirToPlayer, out RaycastHit hit, detectionRange, layerMask))
@@ -127,7 +178,6 @@ public abstract class ZombieBase : MonoBehaviour
             return hit.transform.CompareTag("Player");
         }
 
-        // If raycast hits nothing, assume we can see (open space)
         return true;
     }
 
@@ -167,7 +217,7 @@ public abstract class ZombieBase : MonoBehaviour
     protected virtual void UpdateChase()
     {
         agent.isStopped = false;
-        agent.speed = ChaseSpeed;
+        agent.speed = chaseSpeed;
         agent.SetDestination(player.position);
     }
 
@@ -188,9 +238,6 @@ public abstract class ZombieBase : MonoBehaviour
             lastAttackTime = Time.time;
             animator.SetTrigger("Attack");
             PlaySound(attackClip, 0.8f);
-
-            // We'll connect player damage later
-            // player.GetComponent<PlayerHealth>()?.TakeDamage(attackDamage);
         }
     }
 
@@ -202,15 +249,16 @@ public abstract class ZombieBase : MonoBehaviour
         switch (newState)
         {
             case State.Patrolling:
-                agent.speed = PatrolSpeed;
+                agent.speed = patrolSpeed;
                 agent.isStopped = false;
                 if (!isWaiting && patrolPoints != null && patrolPoints.Length > 0)
                     agent.SetDestination(patrolPoints[currentPatrolIndex].position);
                 break;
 
             case State.Chasing:
-                agent.speed = ChaseSpeed;
+                agent.speed = chaseSpeed;
                 agent.isStopped = false;
+                chaseMemoryTimer = chaseMemoryDuration;
                 PlaySound(idleGroan, 0.6f);
                 break;
 
@@ -231,19 +279,34 @@ public abstract class ZombieBase : MonoBehaviour
     protected virtual void UpdateAnimator()
     {
         float speedPercent = 0f;
+        float animPlaySpeed = 1f;
 
-        if (agent.enabled && !isWaiting && currentState != State.Dead)
+        if (agent.enabled && currentState != State.Dead && currentState != State.Detecting)
         {
-            float currentSpeed = agent.velocity.magnitude;
+            if (currentState == State.Patrolling)
+            {
+                if (isWaiting || patrolPoints == null || patrolPoints.Length == 0)
+                    speedPercent = 0f;
+                else
+                    speedPercent = 0.5f;
+            }
+            else if (currentState == State.Chasing)
+            {
+                speedPercent = Mathf.Clamp01(agent.velocity.magnitude / chaseSpeed);
+            }
+            else if (currentState == State.Attacking)
+            {
+                speedPercent = 0f;
+            }
 
-            if (currentState == State.Chasing)
-                speedPercent = Mathf.Clamp01(currentSpeed / ChaseSpeed);
-            else if (currentState == State.Patrolling)
-                speedPercent = Mathf.Clamp01(currentSpeed / PatrolSpeed) * 0.5f;
+            float currentSpeed = agent.velocity.magnitude;
+            if (currentSpeed > 0.1f)
+                animPlaySpeed = currentSpeed / walkAnimBaseSpeed;
         }
 
         animator.SetFloat("Speed", speedPercent);
         animator.SetBool("IsChasing", currentState == State.Chasing);
+        animator.SetFloat("AnimSpeed", animPlaySpeed);
     }
 
     public virtual void PlayFootstep()
@@ -301,6 +364,9 @@ public abstract class ZombieBase : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+
+        Gizmos.color = new Color(1f, 0.5f, 0f, 0.5f); // orange
+        Gizmos.DrawWireSphere(transform.position, chaseRange);
 
         if (patrolPoints != null)
         {
