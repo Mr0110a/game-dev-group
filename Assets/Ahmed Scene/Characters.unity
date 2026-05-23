@@ -189,7 +189,7 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7554569}
   m_Enabled: 1
-  serializedVersion: 12
+  serializedVersion: 13
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
@@ -241,7 +241,7 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
-  m_ShadowRadius: 0
+  m_ShapeRadius: 0
   m_ShadowAngle: 0
   m_LightUnit: 1
   m_LuxAtDistance: 1
@@ -352,7 +352,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
+      propertyPath: m_TagString
+      value: Zombie
       objectReference: {fileID: 0}
     - target: {fileID: 5420033347761576298, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -411,6 +415,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1192792329}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1192792333}
   m_SourcePrefab: {fileID: 100100000, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
 --- !u!4 &85987901 stripped
 Transform:
@@ -587,11 +594,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e4a604108097ed43b69d8295312ab9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TankZombie
-  detectionRange: 8
+  detectionRange: 10
   fieldOfView: 100
   attackRange: 2.3
-  chaseRange: 20
-  chaseMemoryDuration: 3
+  chaseRange: 27
+  chaseMemoryDuration: 5
   maxHealth: 350
   attackDamage: 20
   attackCooldown: 4
@@ -604,17 +611,20 @@ MonoBehaviour:
   chaseSpeed: 1
   attackSpeedMultiplier: 1
   walkAnimBaseSpeed: 0.35
-  runAnimBaseSpeed: 1.3
-  detectDuration: 2
+  runAnimBaseSpeed: 0.3
+  detectDuration: 2.1
   idleGroan: {fileID: 8300000, guid: 50be8f631d6a14da58b3ef230ec1c022, type: 3}
-  footstepClip: {fileID: 8300000, guid: cfaa31361f7ba4a23b747862467ff938, type: 3}
-  attackClip: {fileID: 8300000, guid: 2c536cff31c3a402898ac356ebd96aba, type: 3}
-  hurtClip: {fileID: 8300000, guid: 4ab62cbf20de44a4582c40ed442be13a, type: 3}
-  deathClip: {fileID: 0}
+  detectClip: {fileID: 8300000, guid: 1be7826a3b5d9fd4f88406999dd7456d, type: 3}
+  footstepClip: {fileID: 8300000, guid: dcfc7dfb0dfd04a50a68e5c5d29e67c0, type: 3}
+  attackSwingClip: {fileID: 8300000, guid: a876179e000ff4ff09b30761b1a88595, type: 3}
+  attackClip: {fileID: 8300000, guid: c25bd31188a0c44148a188f5c09772e7, type: 3}
+  hurtClip: {fileID: 8300000, guid: 7b8f7cd6c1ac44425bef51e36781b251, type: 3}
+  deathClip: {fileID: 8300000, guid: 763a323b04dbb4cbf99082a82ef3cb54, type: 3}
   footstepVolume: 0.4
+  deathSoundDelayBackward: 0.5
+  deathSoundDelayForward: 0.8
   damageReduction: 0.5
   heavyAttackCooldown: 2.5
-  heavyAttackClip: {fileID: 0}
 --- !u!82 &219630719
 AudioSource:
   m_ObjectHideFlags: 0
@@ -636,8 +646,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 19.210785
+  MinDistance: 3
+  MaxDistance: 15
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -722,7 +732,7 @@ Animator:
   m_GameObject: {fileID: 112204339}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: e52a7165a6623414bbb7aa5a3eaf67a6, type: 3}
-  m_Controller: {fileID: 9100000, guid: f80d9712ec42f854d97bcfaa786e021a, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5dd795bc65aee644b9b6001c60c7204b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -756,6 +766,20 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &219630722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112204339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c123d026cd7eb449854f47cd1b193b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZombieDissolve
+  dissolveDelay: 30
+  dissolveDuration: 5
 --- !u!1 &236389287
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,7 +897,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 15.9250555
+  m_FocalLength: 35.402668
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -886,9 +910,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 327.9
-  field of view: 35.994526
+  field of view: 35.99453
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -915,8 +939,8 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.009, y: 1.455, z: 0.298}
-  m_LocalScale: {x: -0.5867743, y: 0.65270007, z: 0.84478074}
+  m_LocalPosition: {x: 0.018, y: 1.511, z: 0.505}
+  m_LocalScale: {x: -0.5867744, y: 0.65270025, z: 0.8447818}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1572057670}
@@ -1109,7 +1133,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.1
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 8eda7e63659a5e84e8707237c46120e3, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: b3cbdbe8f7cfece46a8e88e93050faf5, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &410087039
 GameObject:
@@ -1137,7 +1161,7 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
   m_Enabled: 1
-  serializedVersion: 12
+  serializedVersion: 13
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 2
@@ -1189,7 +1213,7 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
-  m_ShadowRadius: 0
+  m_ShapeRadius: 0
   m_ShadowAngle: 0
   m_LightUnit: 1
   m_LuxAtDistance: 1
@@ -1238,119 +1262,6 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
---- !u!1 &416901128
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 416901129}
-  - component: {fileID: 416901132}
-  - component: {fileID: 416901131}
-  - component: {fileID: 416901130}
-  m_Layer: 0
-  m_Name: room ground 2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &416901129
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 416901128}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 1.5678599, y: -3.68355, z: -7.880001}
-  m_LocalScale: {x: 2.5027845, y: 1, z: 1.5958}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 963227012}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
---- !u!64 &416901130
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 416901128}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &416901131
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 416901128}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &416901132
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 416901128}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &438978235
 GameObject:
   m_ObjectHideFlags: 0
@@ -1366,7 +1277,7 @@ GameObject:
   - component: {fileID: 438978240}
   m_Layer: 0
   m_Name: room ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1495,7 +1406,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.1
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 8b11081f4f001174fb47c27dd01867ab, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 77ffe755b699b5f4499bbce01815c334, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &450903992
 GameObject:
@@ -1707,7 +1618,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.1
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 24b8a31cb9d130b48a56336c49f025e1, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 7ca3704b97526e3499618000669824e2, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &566375302
 GameObject:
@@ -1891,7 +1802,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.1
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: d791a90accba17e4ca5db6a169ef5108, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: c3d6c7a5df500534e977b2594a08075e, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &621824590
 GameObject:
@@ -2070,7 +1981,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.1
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 44fcc11546a0e6f48ab873116c559cb6, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 098f9ee1da26fa046b87e5bfa29b6c3f, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &732404210
 GameObject:
@@ -2216,7 +2127,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.1
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 4d01fb835feccbc4ba00aac65b655747, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 3ae61e7300034e54481dc891a2c48c17, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &765987196
 GameObject:
@@ -2393,7 +2304,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.1
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 43e600aa2440fad40b8c75e6ccf15d6c, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 0743a66359b94c74189c68bce3e92a5c, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &832575517
 GameObject:
@@ -2511,11 +2422,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e0d10d00e2ed4448068aa473c58b04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RunnerZombie
-  detectionRange: 10
+  detectionRange: 15
   fieldOfView: 150
   attackRange: 1.7
-  chaseRange: 20
-  chaseMemoryDuration: 3
+  chaseRange: 27
+  chaseMemoryDuration: 5
   maxHealth: 100
   attackDamage: 10
   attackCooldown: 1.3
@@ -2527,17 +2438,19 @@ MonoBehaviour:
   patrolSpeed: 2.5
   chaseSpeed: 4.4
   attackSpeedMultiplier: 1
-  walkAnimBaseSpeed: 3
+  walkAnimBaseSpeed: 4.5
   runAnimBaseSpeed: 4.5
-  detectDuration: 2
+  detectDuration: 2.1
   idleGroan: {fileID: 8300000, guid: f462d308fc6a648b288adb78161502a5, type: 3}
+  detectClip: {fileID: 8300000, guid: d45ccbf22be2df04aa0831789fe43a58, type: 3}
   footstepClip: {fileID: 8300000, guid: 80e9f3f626b53418ebb33bcc0bf2e7fd, type: 3}
+  attackSwingClip: {fileID: 8300000, guid: f6a46eb0a8b0347a58d7152b541942ca, type: 3}
   attackClip: {fileID: 8300000, guid: 2c536cff31c3a402898ac356ebd96aba, type: 3}
-  hurtClip: {fileID: 8300000, guid: ecff13b727eaf4888a9f6a3221bdb662, type: 3}
-  deathClip: {fileID: 0}
+  hurtClip: {fileID: 8300000, guid: 7b8f7cd6c1ac44425bef51e36781b251, type: 3}
+  deathClip: {fileID: 8300000, guid: d8285c976a26141b7b956c30552425bb, type: 3}
   footstepVolume: 0.4
-  runnerDetectDuration: 3
-  runnerFOV: 150
+  deathSoundDelayBackward: 0.5
+  deathSoundDelayForward: 0.7
 --- !u!82 &833704596
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2559,8 +2472,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 21.202991
+  MinDistance: 2
+  MaxDistance: 15
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -2679,6 +2592,20 @@ NavMeshAgent:
   m_BaseOffset: 0.03
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &833704599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 833704592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c123d026cd7eb449854f47cd1b193b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZombieDissolve
+  dissolveDelay: 30
+  dissolveDuration: 5
 --- !u!1 &930827025
 GameObject:
   m_ObjectHideFlags: 0
@@ -2741,7 +2668,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 438978239}
-  - {fileID: 416901129}
   - {fileID: 621824591}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2802,7 +2728,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c0a41dd9ec53f0943a6a4c03aca5a89f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.02
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c0a41dd9ec53f0943a6a4c03aca5a89f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2842,7 +2768,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c0a41dd9ec53f0943a6a4c03aca5a89f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c0a41dd9ec53f0943a6a4c03aca5a89f, type: 3}
+      propertyPath: m_TagString
+      value: Zombie
       objectReference: {fileID: 0}
     - target: {fileID: 8111781155169087978, guid: c0a41dd9ec53f0943a6a4c03aca5a89f, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -2954,6 +2884,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d16f1711e98407d4b8f576dfa9bb13f9, type: 3}
+      propertyPath: m_TagString
+      value: Zombie
+      objectReference: {fileID: 0}
     - target: {fileID: 8111781155169087978, guid: d16f1711e98407d4b8f576dfa9bb13f9, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -2983,6 +2917,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d16f1711e98407d4b8f576dfa9bb13f9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1754002131}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d16f1711e98407d4b8f576dfa9bb13f9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1754002132}
   m_SourcePrefab: {fileID: 100100000, guid: d16f1711e98407d4b8f576dfa9bb13f9, type: 3}
 --- !u!4 &1027212420 stripped
 Transform:
@@ -3086,7 +3023,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: cd945fc699b159142818e0d9cd1ab521, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cd945fc699b159142818e0d9cd1ab521, type: 3}
+      propertyPath: m_TagString
+      value: Zombie
       objectReference: {fileID: 0}
     - target: {fileID: 8111781155169087978, guid: cd945fc699b159142818e0d9cd1ab521, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -3117,6 +3058,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cd945fc699b159142818e0d9cd1ab521, type: 3}
       insertIndex: -1
       addedObject: {fileID: 833704595}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cd945fc699b159142818e0d9cd1ab521, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 833704599}
   m_SourcePrefab: {fileID: 100100000, guid: cd945fc699b159142818e0d9cd1ab521, type: 3}
 --- !u!1 &1151138066
 GameObject:
@@ -3218,14 +3162,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 001440d89cfe0cb478d3d078c2bf4ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NormalZombie
-  detectionRange: 8
+  detectionRange: 10
   fieldOfView: 100
   attackRange: 2
-  chaseRange: 18
-  chaseMemoryDuration: 4
+  chaseRange: 27
+  chaseMemoryDuration: 5
   maxHealth: 120
   attackDamage: 12
-  attackCooldown: 2
+  attackCooldown: 1.5
   patrolPoints:
   - {fileID: 1056530401}
   - {fileID: 236389288}
@@ -3236,13 +3180,17 @@ MonoBehaviour:
   attackSpeedMultiplier: 1
   walkAnimBaseSpeed: 0.3
   runAnimBaseSpeed: 1.5
-  detectDuration: 2
+  detectDuration: 2.1
   idleGroan: {fileID: 8300000, guid: 69812e02fdf6c421a938309cc2d45922, type: 3}
+  detectClip: {fileID: 8300000, guid: d45ccbf22be2df04aa0831789fe43a58, type: 3}
   footstepClip: {fileID: 8300000, guid: dcfc7dfb0dfd04a50a68e5c5d29e67c0, type: 3}
+  attackSwingClip: {fileID: 8300000, guid: f6a46eb0a8b0347a58d7152b541942ca, type: 3}
   attackClip: {fileID: 8300000, guid: 2c536cff31c3a402898ac356ebd96aba, type: 3}
-  hurtClip: {fileID: 8300000, guid: 4ab62cbf20de44a4582c40ed442be13a, type: 3}
-  deathClip: {fileID: 0}
+  hurtClip: {fileID: 8300000, guid: 7b8f7cd6c1ac44425bef51e36781b251, type: 3}
+  deathClip: {fileID: 8300000, guid: 326203e6dcd57467c92e2bcbf9c25e85, type: 3}
   footstepVolume: 0.4
+  deathSoundDelayBackward: 0.5
+  deathSoundDelayForward: 0.7
 --- !u!82 &1192792330
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3264,8 +3212,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 2
-  MaxDistance: 20
+  MinDistance: 3
+  MaxDistance: 15
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -3384,6 +3332,25 @@ NavMeshAgent:
   m_BaseOffset: 0.0804
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1192792333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192792326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c123d026cd7eb449854f47cd1b193b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZombieDissolve
+  dissolveDelay: 30
+  dissolveDuration: 5
+--- !u!1 &1200675515 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: cfe2df29c1527194992a2a804516841a, type: 3}
+  m_PrefabInstance: {fileID: 1817698294}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1444771443 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c0a41dd9ec53f0943a6a4c03aca5a89f, type: 3}
@@ -3399,31 +3366,31 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.0800009
+      value: -26.630182
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.02
+      value: 0.01999998
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.059999466
+      value: 10.202362
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 0.38268408
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7071068
+      value: -0.92387927
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3431,11 +3398,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -90
+      value: -135
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -334426454937481025, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -334426454937481025, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.165
+      objectReference: {fileID: 0}
+    - target: {fileID: -334426454937481025, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.079
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
       propertyPath: m_Name
@@ -3540,13 +3519,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   moveSpeed: 6
+  runSpeed: 9
   jumpForce: 5
   mouseSensitivity: 3
   maxLookAngle: 90
-  footstepClip: {fileID: 8300000, guid: 80e9f3f626b53418ebb33bcc0bf2e7fd, type: 3}
-  jumpClip: {fileID: 8300000, guid: 5b50263fc644a7e46b152d31541d7607, type: 3}
-  landClip: {fileID: 8300000, guid: 2dbc6219b3c1c4346b1f40dfd61da974, type: 3}
-  footstepVolume: 0.6
+  animationDampTime: 0.1
+  walkAnimBaseSpeed: 7
+  runAnimBaseSpeed: 10
+  footstepClip: {fileID: 8300000, guid: fd873d27a5255534ba46821c589fb503, type: 3}
+  runFootstepClip: {fileID: 8300000, guid: fd873d27a5255534ba46821c589fb503, type: 3}
+  jumpClip: {fileID: 8300000, guid: 70d21687156c5b84dbee279f3bb6086f, type: 3}
+  landClip: {fileID: 8300000, guid: 319c323b5c62fce43a0f77f046130edd, type: 3}
+  footstepVolume: 0.4
 --- !u!4 &1572057670 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
@@ -3561,7 +3545,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1572057666}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
   m_Controller: {fileID: 9100000, guid: e103f075c69cd4643b61446bc091822c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -3741,7 +3725,7 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1579420552}
   m_Enabled: 1
-  serializedVersion: 12
+  serializedVersion: 13
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
@@ -3793,7 +3777,7 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
-  m_ShadowRadius: 0
+  m_ShapeRadius: 0
   m_ShadowAngle: 0
   m_LightUnit: 1
   m_LuxAtDistance: 1
@@ -4013,8 +3997,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 19.938038
+  MinDistance: 3
+  MaxDistance: 15
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -4101,11 +4085,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 966eb00a78c8d72459237a4b1d3bb473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CrawlerZombie
-  detectionRange: 10
+  detectionRange: 17
   fieldOfView: 100
-  attackRange: 2.6
-  chaseRange: 25
-  chaseMemoryDuration: 3
+  attackRange: 8
+  chaseRange: 27
+  chaseMemoryDuration: 5
   maxHealth: 150
   attackDamage: 20
   attackCooldown: 4
@@ -4119,18 +4103,38 @@ MonoBehaviour:
   attackSpeedMultiplier: 1
   walkAnimBaseSpeed: 0.3
   runAnimBaseSpeed: 1.5
-  detectDuration: 2
+  detectDuration: 2.1
   idleGroan: {fileID: 8300000, guid: 824a492d546744169b7e4460926ebb2a, type: 3}
+  detectClip: {fileID: 8300000, guid: d45ccbf22be2df04aa0831789fe43a58, type: 3}
   footstepClip: {fileID: 8300000, guid: 8503c42970d2247a89300b4be374668c, type: 3}
-  attackClip: {fileID: 8300000, guid: 2c536cff31c3a402898ac356ebd96aba, type: 3}
-  hurtClip: {fileID: 8300000, guid: 4ab62cbf20de44a4582c40ed442be13a, type: 3}
-  deathClip: {fileID: 0}
+  attackSwingClip: {fileID: 0}
+  attackClip: {fileID: 8300000, guid: 0f4df8bc62d9e4512ba322688123d96a, type: 3}
+  hurtClip: {fileID: 8300000, guid: 7b8f7cd6c1ac44425bef51e36781b251, type: 3}
+  deathClip: {fileID: 8300000, guid: 326203e6dcd57467c92e2bcbf9c25e85, type: 3}
   footstepVolume: 0.4
+  deathSoundDelayBackward: 0.5
+  deathSoundDelayForward: 0.7
   mouthTransform: {fileID: 1027212420}
   acidProjectilePrefab: {fileID: 2052279871951156367, guid: 680d1e8fd5887a844bb97068468929c6, type: 3}
   spitForce: 5
-  spitAttackRange: 2.6
-  spitSound: {fileID: 0}
+  spitAttackRange: 8
+  spitSound: {fileID: 8300000, guid: 0f4df8bc62d9e4512ba322688123d96a, type: 3}
+  spawnForwardOffset: 0
+  targetHeightOffset: 3
+--- !u!114 &1754002132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 299617920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c123d026cd7eb449854f47cd1b193b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZombieDissolve
+  dissolveDelay: 30
+  dissolveDuration: 5
 --- !u!1001 &1817698294
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4203,10 +4207,30 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.179
       objectReference: {fileID: 0}
+    - target: {fileID: -6142299176988321073, guid: cfe2df29c1527194992a2a804516841a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.05740412
+      objectReference: {fileID: 0}
+    - target: {fileID: -6142299176988321073, guid: cfe2df29c1527194992a2a804516841a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.016860615
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: cfe2df29c1527194992a2a804516841a, type: 3}
       propertyPath: m_Name
       value: Trader
       objectReference: {fileID: 0}
+    - target: {fileID: 1404671781229238895, guid: cfe2df29c1527194992a2a804516841a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.21329466
+      objectReference: {fileID: 0}
+    - target: {fileID: 1404671781229238895, guid: cfe2df29c1527194992a2a804516841a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.020735322
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: cfe2df29c1527194992a2a804516841a, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 4a70950aa3afc944e94594252639bf62, type: 2}
     - target: {fileID: 8111781155169087978, guid: cfe2df29c1527194992a2a804516841a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -4214,13 +4238,133 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cfe2df29c1527194992a2a804516841a, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 1817698297}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cfe2df29c1527194992a2a804516841a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1817698298}
   m_SourcePrefab: {fileID: 100100000, guid: cfe2df29c1527194992a2a804516841a, type: 3}
 --- !u!4 &1817698295 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cfe2df29c1527194992a2a804516841a, type: 3}
   m_PrefabInstance: {fileID: 1817698294}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1817698297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200675515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6e33444c07eb9e44b6761f66c8f7ac9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TraderNPC
+  triggerDistance: 5.13
+  standUpSound: {fileID: 8300000, guid: 8bc8954f15e6fa9408a4bdf664ce3328, type: 3}
+  sitDownSound: {fileID: 8300000, guid: e68ecf2031cf2484e845dde7b4773f41, type: 3}
+  greetingVoiceline: {fileID: 8300000, guid: b228942ea89b7de4b9c1b57ddf48f3b7, type: 3}
+  voicelineDelay: 1
+--- !u!82 &1817698298
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200675515}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 2
+  MaxDistance: 8
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &1873407186
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4287,7 +4431,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e52a7165a6623414bbb7aa5a3eaf67a6, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e52a7165a6623414bbb7aa5a3eaf67a6, type: 3}
+      propertyPath: m_TagString
+      value: Zombie
       objectReference: {fileID: 0}
     - target: {fileID: 8111781155169087978, guid: e52a7165a6623414bbb7aa5a3eaf67a6, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -4318,6 +4466,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e52a7165a6623414bbb7aa5a3eaf67a6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 219630718}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e52a7165a6623414bbb7aa5a3eaf67a6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 219630722}
   m_SourcePrefab: {fileID: 100100000, guid: e52a7165a6623414bbb7aa5a3eaf67a6, type: 3}
 --- !u!1 &1889783449
 GameObject:
@@ -4398,11 +4549,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e3577c012f1bb40ac021d867d66f27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExploderZombie
-  detectionRange: 5
+  detectionRange: 15
   fieldOfView: 100
   attackRange: 2.3
-  chaseRange: 20
-  chaseMemoryDuration: 3
+  chaseRange: 27
+  chaseMemoryDuration: 5
   maxHealth: 200
   attackDamage: 16
   attackCooldown: 2
@@ -4415,18 +4566,26 @@ MonoBehaviour:
   chaseSpeed: 1
   attackSpeedMultiplier: 1
   walkAnimBaseSpeed: 0.35
-  runAnimBaseSpeed: 1.3
-  detectDuration: 2
+  runAnimBaseSpeed: 0.3
+  detectDuration: 2.1
   idleGroan: {fileID: 8300000, guid: 05f860bb66f844d89908829a80c6fe13, type: 3}
-  footstepClip: {fileID: 8300000, guid: cfaa31361f7ba4a23b747862467ff938, type: 3}
-  attackClip: {fileID: 8300000, guid: 2c536cff31c3a402898ac356ebd96aba, type: 3}
-  hurtClip: {fileID: 8300000, guid: 4ab62cbf20de44a4582c40ed442be13a, type: 3}
-  deathClip: {fileID: 0}
+  detectClip: {fileID: 8300000, guid: 1be7826a3b5d9fd4f88406999dd7456d, type: 3}
+  footstepClip: {fileID: 8300000, guid: dcfc7dfb0dfd04a50a68e5c5d29e67c0, type: 3}
+  attackSwingClip: {fileID: 8300000, guid: a876179e000ff4ff09b30761b1a88595, type: 3}
+  attackClip: {fileID: 8300000, guid: c25bd31188a0c44148a188f5c09772e7, type: 3}
+  hurtClip: {fileID: 8300000, guid: 7b8f7cd6c1ac44425bef51e36781b251, type: 3}
+  deathClip: {fileID: 8300000, guid: d8285c976a26141b7b956c30552425bb, type: 3}
   footstepVolume: 0.4
-  explosionPrefab: {fileID: 0}
-  explosionRadius: 5
+  deathSoundDelayBackward: 0
+  deathSoundDelayForward: 0
+  explosionPrefab: {fileID: 1281758642076829850, guid: 4880bb65f1826eb48b6cffc9169ce05d, type: 3}
+  explosionRadius: 5.6
   explosionDamage: 50
-  explosionSound: {fileID: 0}
+  explosionSound: {fileID: 8300000, guid: 609228ec55b832442af52200e1d22595, type: 3}
+  fallDuration: 1.5
+  fallSoundDelay: 0.5
+  tweakDuration: 2.9
+  tweakSound: {fileID: 8300000, guid: e015d0fb6e8309447a7cf34cf02bdff0, type: 3}
 --- !u!136 &1995244987
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4498,8 +4657,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 15.666498
+  MinDistance: 3
+  MaxDistance: 15
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

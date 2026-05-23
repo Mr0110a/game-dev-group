@@ -43,4 +43,16 @@ public class SpitterZombie : ZombieBase
                 rb.AddForce(direction * spitForce, ForceMode.Impulse);
         }
     }
+
+    //----------------------------------temporary-------------------------------------------------
+    protected override void Update()
+    {
+        base.Update();
+
+        // TEMP DEBUG — press K to instantly kill exploder, remove before final build
+        if (Input.GetKeyDown(KeyCode.K))
+            Die();
+    }
+
+    //----------------------------------temporary-------------------------------------------------
 }

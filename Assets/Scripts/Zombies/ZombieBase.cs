@@ -56,6 +56,10 @@ public abstract class ZombieBase : MonoBehaviour
     [SerializeField] protected AudioClip deathClip;
     [SerializeField][Range(0f, 1f)] protected float footstepVolume = 0.3f;
 
+    [Header("Death Settings")]
+    [SerializeField] private float deathSoundDelayBackward = 0f;
+    [SerializeField] private float deathSoundDelayForward = 0f;
+
     protected NavMeshAgent agent;
     protected Animator animator;
     protected AudioSource audioSource;
@@ -224,7 +228,7 @@ public abstract class ZombieBase : MonoBehaviour
 
     protected virtual void UpdateChase()
     {
-        //Don't move until Animator has finished Detect transition
+        // Don't move until Animator has finished Detect transition
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         bool isInRunState = stateInfo.IsName("Zombie_Run") || stateInfo.IsName("Zombie_Walk");
 
@@ -383,7 +387,8 @@ public abstract class ZombieBase : MonoBehaviour
         }
     }
 
-    public virtual void TakeDamage(float damage)
+    // Called by damage system — passes source position for directional death
+    public virtual void TakeDamage(float damage, Vector3 damageSourcePosition)
     {
         if (currentState == State.Dead) return;
 
@@ -391,20 +396,53 @@ public abstract class ZombieBase : MonoBehaviour
         PlaySound(hurtClip, 0.7f);
 
         if (currentHealth <= 0)
-            Die();
+            Die(damageSourcePosition);
     }
 
-    protected virtual void Die()
+    // Overload for compatibility — uses player position as source
+    public virtual void TakeDamage(float damage)
+    {
+        TakeDamage(damage, player != null ? player.position : transform.position);
+    }
+
+    protected virtual void Die(Vector3 damageSourcePosition)
     {
         currentState = State.Dead;
         agent.enabled = false;
+
+        // Determine fall direction based on where damage came from
+        Vector3 directionToSource = (damageSourcePosition - transform.position).normalized;
+        float dot = Vector3.Dot(transform.forward, directionToSource);
+
+        // dot > 0 = source is in front = zombie falls forward
+        // dot < 0 = source is behind = zombie falls backward
+        bool dieForward = dot > 0f;
+
+        animator.SetBool("DieForward", dieForward);
         animator.SetTrigger("Death");
-        PlaySound(deathClip, 1f);
 
         Collider col = GetComponent<Collider>();
         if (col != null) col.enabled = false;
 
-        Destroy(gameObject, 5f);
+        float delay = dieForward ? deathSoundDelayForward : deathSoundDelayBackward;
+        StartCoroutine(PlayDeathSound(delay));
+
+        // Start dissolve — ZombieDissolve handles body cleanup
+        GetComponent<ZombieDissolve>()?.StartDissolve();
+    }
+
+    // Keep old Die() for anything that calls it directly
+    protected virtual void Die()
+    {
+        Die(player != null ? player.position : transform.position);
+    }
+
+    private IEnumerator PlayDeathSound(float delay)
+    {
+        if (delay > 0f)
+            yield return new WaitForSeconds(delay);
+
+        PlaySound(deathClip, 1f);
     }
 
     protected virtual void OnDrawGizmosSelected()

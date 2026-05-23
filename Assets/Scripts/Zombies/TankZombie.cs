@@ -5,8 +5,6 @@ public class TankZombie : ZombieBase
     [Header("Tank Specific")]
     [SerializeField] private float damageReduction = 0.5f;
     [SerializeField] private float heavyAttackCooldown = 2.5f;
-    [SerializeField] private AudioClip heavyAttackSwingClip; // grunt/swing override
-    [SerializeField] private AudioClip heavyAttackClip;      // impact override
 
     protected override void Awake()
     {
@@ -20,17 +18,7 @@ public class TankZombie : ZombieBase
         base.TakeDamage(reduced);
     }
 
-    public override void PlayAttackSwingSound()
-    {
-        if (currentState == State.Attacking)
-            PlaySound(heavyAttackSwingClip != null ? heavyAttackSwingClip : attackSwingClip, 1f);
-    }
 
-    public override void PlayAttackSound()
-    {
-        if (currentState == State.Attacking)
-            PlaySound(heavyAttackClip != null ? heavyAttackClip : attackClip, 1f);
-    }
 
     protected override void Die()
     {
@@ -38,4 +26,16 @@ public class TankZombie : ZombieBase
         Destroy(gameObject, 8f); // overrides the 5f in base
         base.Die();
     }
+
+    //----------------------------------temporary-------------------------------------------------
+    protected override void Update()
+    {
+        base.Update();
+
+        // TEMP DEBUG — press K to instantly kill exploder, remove before final build
+        if (Input.GetKeyDown(KeyCode.K))
+            Die();
+    }
+
+    //----------------------------------temporary-------------------------------------------------
 }
