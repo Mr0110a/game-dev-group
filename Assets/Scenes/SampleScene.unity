@@ -306,9 +306,81 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6679048010460921364, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.054
+      objectReference: {fileID: 0}
+    - target: {fileID: -6679048010460921364, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.131
+      objectReference: {fileID: 0}
+    - target: {fileID: -6679048010460921364, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.036
+      objectReference: {fileID: 0}
+    - target: {fileID: -3013317397218381484, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.88438696
+      objectReference: {fileID: 0}
+    - target: {fileID: -3013317397218381484, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.46189454
+      objectReference: {fileID: 0}
+    - target: {fileID: -3013317397218381484, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.019019863
+      objectReference: {fileID: 0}
+    - target: {fileID: -3013317397218381484, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.06443171
+      objectReference: {fileID: 0}
+    - target: {fileID: -3013317397218381484, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -55.029
+      objectReference: {fileID: 0}
+    - target: {fileID: -3013317397218381484, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -2.588
+      objectReference: {fileID: 0}
+    - target: {fileID: -3013317397218381484, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 9.682
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
       propertyPath: m_Name
       value: 'normal zombie '
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5420033347761576298, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.95112294
+      objectReference: {fileID: 0}
+    - target: {fileID: 5420033347761576298, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.29190233
+      objectReference: {fileID: 0}
+    - target: {fileID: 5420033347761576298, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.089162774
+      objectReference: {fileID: 0}
+    - target: {fileID: 5420033347761576298, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.046992946
+      objectReference: {fileID: 0}
+    - target: {fileID: 5420033347761576298, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 33.154
+      objectReference: {fileID: 0}
+    - target: {fileID: 5420033347761576298, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -13.613
+      objectReference: {fileID: 0}
+    - target: {fileID: 5420033347761576298, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -9.727
       objectReference: {fileID: 0}
     - target: {fileID: 8111781155169087978, guid: 02485a33f5c06ff4ab923ed5cd710c4b, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -515,9 +587,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e4a604108097ed43b69d8295312ab9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TankZombie
-  detectionRange: 2
-  fieldOfView: 360
-  attackRange: 1.5
+  detectionRange: 8
+  fieldOfView: 100
+  attackRange: 2.3
   chaseRange: 20
   chaseMemoryDuration: 3
   maxHealth: 350
@@ -531,14 +603,18 @@ MonoBehaviour:
   patrolSpeed: 0.75
   chaseSpeed: 1
   attackSpeedMultiplier: 1
-  walkAnimBaseSpeed: 0.4
-  detectDuration: 1.2
-  idleGroan: {fileID: 0}
-  footstepClip: {fileID: 0}
-  attackClip: {fileID: 0}
-  hurtClip: {fileID: 0}
+  walkAnimBaseSpeed: 0.35
+  runAnimBaseSpeed: 1.3
+  detectDuration: 2
+  idleGroan: {fileID: 8300000, guid: 50be8f631d6a14da58b3ef230ec1c022, type: 3}
+  footstepClip: {fileID: 8300000, guid: cfaa31361f7ba4a23b747862467ff938, type: 3}
+  attackClip: {fileID: 8300000, guid: 2c536cff31c3a402898ac356ebd96aba, type: 3}
+  hurtClip: {fileID: 8300000, guid: 4ab62cbf20de44a4582c40ed442be13a, type: 3}
   deathClip: {fileID: 0}
-  footstepVolume: 0.3
+  footstepVolume: 0.4
+  damageReduction: 0.5
+  heavyAttackCooldown: 2.5
+  heavyAttackClip: {fileID: 0}
 --- !u!82 &219630719
 AudioSource:
   m_ObjectHideFlags: 0
@@ -561,7 +637,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 19.210785
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -646,7 +722,7 @@ Animator:
   m_GameObject: {fileID: 112204339}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: e52a7165a6623414bbb7aa5a3eaf67a6, type: 3}
-  m_Controller: {fileID: 9100000, guid: 895a44f7f1d3ccb48b99feb3c0bf6d60, type: 2}
+  m_Controller: {fileID: 9100000, guid: f80d9712ec42f854d97bcfaa786e021a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -677,7 +753,7 @@ NavMeshAgent:
   m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0.0804
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!1 &236389287
@@ -919,7 +995,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -72.6, y: -1.16068, z: -21.4104}
-  m_LocalScale: {x: 2.1742501, y: 1, z: 4.959871}
+  m_LocalScale: {x: 4.3485003, y: 1, z: 4.959871}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 262545472}
@@ -1517,7 +1593,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -13.311241, y: -1.16068, z: -21.4104}
-  m_LocalScale: {x: 2.1742501, y: 1, z: 4.959871}
+  m_LocalScale: {x: 4.0221453, y: 1, z: 4.959871}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 262545472}
@@ -2105,7 +2181,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.83, y: 0, z: 0.14}
-  m_LocalScale: {x: 1.1061507, y: 1, z: 2.1221218}
+  m_LocalScale: {x: 1.1061507, y: 1, z: 2.2307744}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2435,9 +2511,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e0d10d00e2ed4448068aa473c58b04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RunnerZombie
-  detectionRange: 3
-  fieldOfView: 360
-  attackRange: 1.3
+  detectionRange: 10
+  fieldOfView: 150
+  attackRange: 1.7
   chaseRange: 20
   chaseMemoryDuration: 3
   maxHealth: 100
@@ -2448,17 +2524,20 @@ MonoBehaviour:
   - {fileID: 1682614262}
   waitTimeAtPoint: 2
   waypointReachedDist: 0.5
-  patrolSpeed: 1
-  chaseSpeed: 3
+  patrolSpeed: 2.5
+  chaseSpeed: 4.4
   attackSpeedMultiplier: 1
-  walkAnimBaseSpeed: 0.3
-  detectDuration: 1.2
-  idleGroan: {fileID: 0}
-  footstepClip: {fileID: 0}
-  attackClip: {fileID: 0}
-  hurtClip: {fileID: 0}
+  walkAnimBaseSpeed: 3
+  runAnimBaseSpeed: 4.5
+  detectDuration: 2
+  idleGroan: {fileID: 8300000, guid: f462d308fc6a648b288adb78161502a5, type: 3}
+  footstepClip: {fileID: 8300000, guid: 80e9f3f626b53418ebb33bcc0bf2e7fd, type: 3}
+  attackClip: {fileID: 8300000, guid: 2c536cff31c3a402898ac356ebd96aba, type: 3}
+  hurtClip: {fileID: 8300000, guid: ecff13b727eaf4888a9f6a3221bdb662, type: 3}
   deathClip: {fileID: 0}
-  footstepVolume: 0.3
+  footstepVolume: 0.4
+  runnerDetectDuration: 3
+  runnerFOV: 150
 --- !u!82 &833704596
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2481,7 +2560,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 21.202991
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -2566,7 +2645,7 @@ Animator:
   m_GameObject: {fileID: 833704592}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: cd945fc699b159142818e0d9cd1ab521, type: 3}
-  m_Controller: {fileID: 9100000, guid: 895a44f7f1d3ccb48b99feb3c0bf6d60, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2b10e525dff7f814b942fd456191d560, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2597,7 +2676,7 @@ NavMeshAgent:
   m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 1.79
-  m_BaseOffset: 0.0804
+  m_BaseOffset: 0.03
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!1 &930827025
@@ -2855,6 +2934,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1157916872652671966, guid: d16f1711e98407d4b8f576dfa9bb13f9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: -1157916872652671966, guid: d16f1711e98407d4b8f576dfa9bb13f9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.106
+      objectReference: {fileID: 0}
+    - target: {fileID: -1157916872652671966, guid: d16f1711e98407d4b8f576dfa9bb13f9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.102
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d16f1711e98407d4b8f576dfa9bb13f9, type: 3}
       propertyPath: m_Name
       value: 'spitter zombie '
@@ -2893,6 +2984,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1754002131}
   m_SourcePrefab: {fileID: 100100000, guid: d16f1711e98407d4b8f576dfa9bb13f9, type: 3}
+--- !u!4 &1027212420 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -1157916872652671966, guid: d16f1711e98407d4b8f576dfa9bb13f9, type: 3}
+  m_PrefabInstance: {fileID: 1027212419}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1056530400
 GameObject:
   m_ObjectHideFlags: 0
@@ -3122,10 +3218,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 001440d89cfe0cb478d3d078c2bf4ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NormalZombie
-  detectionRange: 3
-  fieldOfView: 180
-  attackRange: 1
-  chaseRange: 17.7
+  detectionRange: 8
+  fieldOfView: 100
+  attackRange: 2
+  chaseRange: 18
   chaseMemoryDuration: 4
   maxHealth: 120
   attackDamage: 12
@@ -3136,16 +3232,17 @@ MonoBehaviour:
   waitTimeAtPoint: 2
   waypointReachedDist: 0.5
   patrolSpeed: 1
-  chaseSpeed: 1.8
+  chaseSpeed: 1.9
   attackSpeedMultiplier: 1
   walkAnimBaseSpeed: 0.3
+  runAnimBaseSpeed: 1.5
   detectDuration: 2
-  idleGroan: {fileID: 0}
-  footstepClip: {fileID: 0}
-  attackClip: {fileID: 0}
-  hurtClip: {fileID: 0}
+  idleGroan: {fileID: 8300000, guid: 69812e02fdf6c421a938309cc2d45922, type: 3}
+  footstepClip: {fileID: 8300000, guid: dcfc7dfb0dfd04a50a68e5c5d29e67c0, type: 3}
+  attackClip: {fileID: 8300000, guid: 2c536cff31c3a402898ac356ebd96aba, type: 3}
+  hurtClip: {fileID: 8300000, guid: 4ab62cbf20de44a4582c40ed442be13a, type: 3}
   deathClip: {fileID: 0}
-  footstepVolume: 0.3
+  footstepVolume: 0.4
 --- !u!82 &1192792330
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3302,7 +3399,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.08
+      value: -1.0800009
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3310,7 +3407,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.94
+      value: 0.059999466
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3371,6 +3468,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1572057671}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1572057672}
   m_SourcePrefab: {fileID: 100100000, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
 --- !u!1 &1572057666 stripped
 GameObject:
@@ -3439,10 +3539,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4b30f898277ac44d8fc8aac1c10b8b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  moveSpeed: 3.8
+  moveSpeed: 6
   jumpForce: 5
   mouseSensitivity: 3
   maxLookAngle: 90
+  footstepClip: {fileID: 8300000, guid: 80e9f3f626b53418ebb33bcc0bf2e7fd, type: 3}
+  jumpClip: {fileID: 8300000, guid: 5b50263fc644a7e46b152d31541d7607, type: 3}
+  landClip: {fileID: 8300000, guid: 2dbc6219b3c1c4346b1f40dfd61da974, type: 3}
+  footstepVolume: 0.6
 --- !u!4 &1572057670 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4f750d6aad723fb49b1f7ac039bb738e, type: 3}
@@ -3470,6 +3574,103 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!82 &1572057672
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572057666}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1.7086842
+  MaxDistance: 5.184234
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1579420552
 GameObject:
   m_ObjectHideFlags: 0
@@ -3716,7 +3917,7 @@ NavMeshAgent:
   m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 1.64
-  m_BaseOffset: 0.0804
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!95 &1754002127
@@ -3729,7 +3930,7 @@ Animator:
   m_GameObject: {fileID: 299617920}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: d16f1711e98407d4b8f576dfa9bb13f9, type: 3}
-  m_Controller: {fileID: 9100000, guid: 895a44f7f1d3ccb48b99feb3c0bf6d60, type: 2}
+  m_Controller: {fileID: 9100000, guid: 060578f2d8333224baa98f1dae04d1b7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3813,7 +4014,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 19.938038
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -3900,10 +4101,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 966eb00a78c8d72459237a4b1d3bb473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CrawlerZombie
-  detectionRange: 2.5
-  fieldOfView: 360
+  detectionRange: 10
+  fieldOfView: 100
   attackRange: 2.6
-  chaseRange: 20
+  chaseRange: 25
   chaseMemoryDuration: 3
   maxHealth: 150
   attackDamage: 20
@@ -3914,16 +4115,22 @@ MonoBehaviour:
   waitTimeAtPoint: 2
   waypointReachedDist: 0.5
   patrolSpeed: 1
-  chaseSpeed: 4.5
+  chaseSpeed: 1.9
   attackSpeedMultiplier: 1
   walkAnimBaseSpeed: 0.3
-  detectDuration: 1.2
-  idleGroan: {fileID: 0}
-  footstepClip: {fileID: 0}
-  attackClip: {fileID: 0}
-  hurtClip: {fileID: 0}
+  runAnimBaseSpeed: 1.5
+  detectDuration: 2
+  idleGroan: {fileID: 8300000, guid: 824a492d546744169b7e4460926ebb2a, type: 3}
+  footstepClip: {fileID: 8300000, guid: 8503c42970d2247a89300b4be374668c, type: 3}
+  attackClip: {fileID: 8300000, guid: 2c536cff31c3a402898ac356ebd96aba, type: 3}
+  hurtClip: {fileID: 8300000, guid: 4ab62cbf20de44a4582c40ed442be13a, type: 3}
   deathClip: {fileID: 0}
-  footstepVolume: 0.3
+  footstepVolume: 0.4
+  mouthTransform: {fileID: 1027212420}
+  acidProjectilePrefab: {fileID: 2052279871951156367, guid: 680d1e8fd5887a844bb97068468929c6, type: 3}
+  spitForce: 5
+  spitAttackRange: 2.6
+  spitSound: {fileID: 0}
 --- !u!1001 &1817698294
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4191,9 +4398,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e3577c012f1bb40ac021d867d66f27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExploderZombie
-  detectionRange: 2.2
-  fieldOfView: 360
-  attackRange: 1.5
+  detectionRange: 5
+  fieldOfView: 100
+  attackRange: 2.3
   chaseRange: 20
   chaseMemoryDuration: 3
   maxHealth: 200
@@ -4207,14 +4414,19 @@ MonoBehaviour:
   patrolSpeed: 0.75
   chaseSpeed: 1
   attackSpeedMultiplier: 1
-  walkAnimBaseSpeed: 0.4
-  detectDuration: 1.2
-  idleGroan: {fileID: 0}
-  footstepClip: {fileID: 0}
-  attackClip: {fileID: 0}
-  hurtClip: {fileID: 0}
+  walkAnimBaseSpeed: 0.35
+  runAnimBaseSpeed: 1.3
+  detectDuration: 2
+  idleGroan: {fileID: 8300000, guid: 05f860bb66f844d89908829a80c6fe13, type: 3}
+  footstepClip: {fileID: 8300000, guid: cfaa31361f7ba4a23b747862467ff938, type: 3}
+  attackClip: {fileID: 8300000, guid: 2c536cff31c3a402898ac356ebd96aba, type: 3}
+  hurtClip: {fileID: 8300000, guid: 4ab62cbf20de44a4582c40ed442be13a, type: 3}
   deathClip: {fileID: 0}
   footstepVolume: 0.4
+  explosionPrefab: {fileID: 0}
+  explosionRadius: 5
+  explosionDamage: 50
+  explosionSound: {fileID: 0}
 --- !u!136 &1995244987
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4287,7 +4499,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 15.666498
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -4372,7 +4584,7 @@ Animator:
   m_GameObject: {fileID: 1995244985}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: c0a41dd9ec53f0943a6a4c03aca5a89f, type: 3}
-  m_Controller: {fileID: 9100000, guid: 895a44f7f1d3ccb48b99feb3c0bf6d60, type: 2}
+  m_Controller: {fileID: 9100000, guid: f80d9712ec42f854d97bcfaa786e021a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -4403,7 +4615,7 @@ NavMeshAgent:
   m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0.0804
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!1660057539 &9223372036854775807
